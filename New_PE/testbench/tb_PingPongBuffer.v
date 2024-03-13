@@ -9,7 +9,7 @@ module tb_PingPongBuffer;
   reg i_switch_pingpong;
   reg [7:0] i_data_din;
   reg i_data_din_vld;
-  reg [15:0] i_conv_addr;
+  reg [9:0] i_conv_addr;
   wire [7:0] o_conv_dout;
   wire o_pl_buffer_ready;
 
@@ -47,8 +47,28 @@ module tb_PingPongBuffer;
  end
 
 initial begin
+  i_rst_n=1'd0;
+#(Tclk*1200)
 i_rst_n=1'd1;
-i_conv_addr=16'd0;
+i_conv_addr=10'd0;
+i_switch_pingpong=1'd0;
+i_data_din=8'd8;
+i_data_din_vld=1'd1;
+#(Tclk*1200)
+i_switch_pingpong=1'd1;
+i_data_din=8'd7;
+#(Tclk*1200)
+i_switch_pingpong=1'd0;
+i_data_din=8'd6;
+#(Tclk*1200)
+i_switch_pingpong=1'd1;
+i_data_din=8'd5;
+
+#(Tclk*1200)
+i_rst_n=1'd0;
+#(Tclk*1200)
+i_rst_n=1'd1;
+i_conv_addr=10'd0;
 i_switch_pingpong=1'd0;
 i_data_din=8'd8;
 i_data_din_vld=1'd1;
